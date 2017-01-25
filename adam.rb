@@ -44,11 +44,41 @@ module A
 end
 #root constant resolution operator
 
-# if you call Memberships::ID it will look from there up the hierarchy, so it will find the module
+# if you call Memberships::ID it will be inside the context of A::Memberships, so it will look for A::Memberships::ID
 # it's inside of and get 3
 # if you call ::Memberships::ID it will look for a module Memberships that is not scoped withing anything,
 # which means a file with module Memberships on the top
 # if you have two files called membership.rb, rails will load the directories in alphabetical order so the first directory in the app directory
+
+module Api
+  module Memberships
+    class ContactAttemptsController < AnetController
+      ::Memberships::AnetMemberIdHandler.new(member_id: member_id)
+    end
+  end
+end
+
+module Memberships
+  class AnetMemberIdHandler
+  end
+end
+
+#the above is called within the context of Api::Memberships::ContactAttemptsController
+#so if you don't use the :: before it is going to look for Api::Memberships::AnetMemberIdHandler
+
+class RetentionMember
+  Memberships::AnetMemberIdHandler
+end
+
+#here there is no scope, so no need to scope out, it will call Memberships::AnetMemberIdHandler just as is.
+
+module Memberships
+  module SharedInsights
+    Memberships::AT_RISK
+  end
+end
+
+#it's going to look for Memberships::AT_RISK
 
 class A::B
 end
