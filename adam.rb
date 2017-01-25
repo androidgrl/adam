@@ -23,7 +23,9 @@ end
 #because you don't want to set a local variable inside of an if statement
 #so instead assign it as the result returned from the statement
 #also if you have else nil, that is the default return for else so don't need that line
-
+module Memberships
+  ID = 1
+end
 module A
   module Memberships
     ID = 3
@@ -40,6 +42,7 @@ module A
     end
   end
 end
+#root constant resolution operator
 
 # if you call Memberships::ID it will look from there up the hierarchy, so it will find the module
 # it's inside of and get 3
