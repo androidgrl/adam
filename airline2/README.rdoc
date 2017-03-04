@@ -1,0 +1,33 @@
+To make a table with a foreign key in it:
+rails g resource Ticket departure_airport_id:integer arrival_airport_id:integer departure_time:datetime arrival_time:datetime plane:references pilot:references
+
+To make the association between Airport and Flight:
+
+class Airport < ActiveRecord::Base
+  has_many :pilots
+  has_many :departing_flights, class_name: "Flight", foreign_key: "departure_airport_id"
+  has_many :arriving_flights, class_name: "Flight", foreign_key: "arrival_airport_id"
+end
+
+
+class Flight < ActiveRecord::Base
+  belongs_to :plane
+  belongs_to :pilot
+  belongs_to :arrival_airport, class_name: "Airport"
+  belongs_to :departure_airport, class_name: "Airport"
+end
+
+To create an associated object:
+
+flight = Flight.create
+a = airport.first
+a.name = "LAX"
+a2 = Airport.create name: "DAL"
+f = Flight.new
+f.departure_airport
+f.departure_airport = a
+f.arrival_airport = a2
+f.save
+a.arriving_flights
+b.departing_flights
+
