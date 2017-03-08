@@ -6,8 +6,8 @@ This pushes to gitlab which has a webhook which tells Jenkins that something pus
 Jenkins then has it's own copy of the app and is running on its own server, and it pulls the latest version of int01 from gitlab
 2.  Jenkins then runs the tests and if they pass it runs cap deploy int01
 Which runs deploy.rb and int01.rb
-Deploy.rb sets the scripts for capistrano to use after the server has pulled the latest version of int01
-Int01.rb tells pushes the latest version of int01 to the server
+Deploy.rb sets the scripts for capistrano to use after the server has received the latest version of int01
+Int01.rb pushes the latest version of int01 to the server
 Then the cap scripts get run such as bundle install.
 And lastly it runs passenger start which starts the rails server
 The cap scripts get run by Jenkins which SSH's into the server
