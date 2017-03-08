@@ -15,4 +15,11 @@ __Authentication__
 }
 ```
 
+__Ian Notes__
 The key is then passed to the browser through the session cookie.  This session cookie will only expire when the browser is closed.  When the user refreshes the page, the cookie with the key is sent to the server, decrypted and if the key matches the user_id is stored
+
+
+yeah, a common pattern is to generate a unique hash for the user, write their session data into redis using that hashed id as the key in redis, and write that key in the user’s cookie. this can, however, lead to session hijacking if I can also find out your hash and rewrite my own cookie, so an even better pattern would be to have a secondary lookup somewhere where the hash from the cookie is looked up elsewhere to determine the user, and then have a secondary key to fetch session data.
+
+[7:30]
+if you use a long-enough unique identifier, like a 36-byte UUID, it’s much harder to brute force the discovery of the value, and like a password, the longer the hash gets the more times the sun woul dhave to burn out before you correctly guessed it :slightly_smiling_face:
