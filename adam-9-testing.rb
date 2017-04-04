@@ -66,3 +66,13 @@ describe '#execute!' do
     segment_query.execute!
   end
 end
+
+
+def bake_cake
+  measure_ingredients
+  mix_ingredients
+  put_in_oven
+end
+
+def measure
+end
