@@ -24,3 +24,5 @@ which loads railties, autoloadpaths which includes controllers, gems
 When a model is called, Rails will look for it in the app subdirectories in alphabetical order, until it gets to the model
 directory.  Which is why if you have a model with the same name in both models and services, it will only find the one in
 models.
+
+And the filename needs to match the class name.
